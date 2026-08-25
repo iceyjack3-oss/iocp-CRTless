@@ -45,11 +45,8 @@ DWORD WINAPI dmp(LPVOID lpParam)
 
     while (1)
     {
-
+        
         GetQueuedCompletionStatus(co, &bytrcv, &skp, &lap, INFINITE);
-
-        if (bytrcv >= 0)
-        {
 
             pod *iod = (pod *)lap;
 
@@ -105,7 +102,6 @@ DWORD WINAPI dmp(LPVOID lpParam)
 
             closesocket(iod->clnts);
             HeapFree(GetProcessHeap(), 0, iod);
-        }
         }
     }
 }
