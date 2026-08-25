@@ -97,7 +97,6 @@ DWORD WINAPI dmp(LPVOID lpParam)
 
                 WSARecv(iod->clnts, &wbf, 1, &tbyt, &fl, &(iod->la), NULL);
             }
-        }
         else if (bytrcv == 0 && skp != lst)
         {
             logerr("client disconnected\n");
@@ -106,6 +105,7 @@ DWORD WINAPI dmp(LPVOID lpParam)
 
             closesocket(iod->clnts);
             HeapFree(GetProcessHeap(), 0, iod);
+        }
         }
     }
 }
