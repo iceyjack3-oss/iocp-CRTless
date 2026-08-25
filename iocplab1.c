@@ -156,7 +156,7 @@ void entry(void)
     CreateIoCompletionPort((HANDLE)lst, co, (ULONG_PTR)lst, 0);
 
     HANDLE ho = GetProcessHeap();
-    for (int j = 0; j < 16; j++)
+    for (int j = 0; j < 8000; j++)
     {
         pod *iod = (pod *)HeapAlloc(ho, HEAP_ZERO_MEMORY, sizeof(pod));
 
