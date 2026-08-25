@@ -151,15 +151,17 @@ void entry(void)
         {
             CloseHandle(hthrd);
         }
+    }
+    GUID gex = WSAID_ACCEPTEX;
+    DWORD dbyw = 0;
 
-        GUID gex = WSAID_ACCEPTEX;
-        DWORD dbyw = 0;
+    WSAIoctl(lst, SIO_GET_EXTENSION_FUNCTION_POINTER, &gex, sizeof(gex), &paex, sizeof(paex), &dbyw, NULL, NULL);
 
-        WSAIoctl(lst, SIO_GET_EXTENSION_FUNCTION_POINTER, &gex, sizeof(gex), &paex, sizeof(paex), &dbyw, NULL, NULL);
+    CreateIoCompletionPort((HANDLE)lst, co, (ULONG_PTR)lst, 0);
 
-        CreateIoCompletionPort((HANDLE)lst, co, (ULONG_PTR)lst, 0);
-
-        HANDLE ho = GetProcessHeap();
+    HANDLE ho = GetProcessHeap();
+    for (int j = 0; j < 16; j++)
+    {
         pod *iod = (pod *)HeapAlloc(ho, HEAP_ZERO_MEMORY, sizeof(pod));
 
         iod->clnts = WSASocketA(AF_INET, SOCK_STREAM, IPPROTO_TCP, NULL, 0, WSA_FLAG_OVERLAPPED);
@@ -167,8 +169,9 @@ void entry(void)
         DWORD bytrtrn;
         DWORD adln = sizeof(SOCKADDR_IN) + 16;
         paex(lst, iod->clnts, iod->bf, 0, adln, adln, &bytrtrn, &(iod->la));
-
-        Sleep(INFINITE);
     }
+
+    Sleep(INFINITE);
+
     ExitProcess(0);
 }
